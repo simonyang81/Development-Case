@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "DCNavigationController.h"
+#import "DCViewController.h"
 
 @interface AppDelegate ()
 
@@ -19,7 +21,10 @@
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor lightGrayColor];
-    self.window.rootViewController = [[UIViewController alloc] init];
+    DCViewController *controller = [[DCViewController alloc] init];
+    DCNavigationController *navigationController = [[DCNavigationController alloc] initWithRootViewController:controller];
+
+    self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
 
     return YES;
