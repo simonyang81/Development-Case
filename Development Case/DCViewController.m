@@ -22,28 +22,25 @@
     // Do any additional setup after loading the view.
 
     self.navigationItem.title = @"Practice";
-    self.view.backgroundColor = UIColor.whiteColor;
 
-//    UILabel *label = [[UILabel alloc] init];
-//    [self.view addSubview:label];
-////    [label setTextColor: UIColor.blackColor];
-//
-////    UIFont *font = [[UIFont alloc] init];
-////    [label setFont:];
-//
-////    label.frame = CGRectMake(50, 50, 50, 21);
-//
-//    [label setText:@"Simon's practice"];
-//    [label setTextAlignment:NSTextAlignmentCenter];
-//    [label setFont:[UIFont fontWithName:@"HelveticaNeue" size:20]];
-//
-//    [label mas_makeConstraints:^(MASConstraintMaker *maker){
-//        maker.width.equalTo(self.view.mas_width).multipliedBy(0.5);
-//        maker.centerX.equalTo(self.view.mas_centerX);
-//        maker.top.equalTo(self.view.mas_top).offset(
-//                self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + 10);
-//
-//    }];
+    UISlider *slider = [[UISlider alloc] init];
+    [slider setMinimumValue:0];
+    [slider setMaximumValue:1];
+    [slider setValue:0.5 animated:YES];
+
+    [self.view addSubview:slider];
+
+    [slider mas_makeConstraints:^(MASConstraintMaker *maker){
+
+        [super addMarginTopConstraints:maker withMASAttr:self.view.mas_top];
+        maker.centerX.equalTo(self.view.mas_centerX);
+        maker.width.equalTo(self.view.mas_width).multipliedBy(.5);
+
+//        [super mas_makeConstraints:maker superView:self.view offset:self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + 10];
+
+//        maker.top.equalTo(self.view.mas_top)
+//                .offset(self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + 10);
+    }];
 
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
     [self.view addSubview:button];
@@ -54,11 +51,16 @@
     [button mas_makeConstraints:^(MASConstraintMaker *maker){
 //        maker.width.equalTo(self.view.mas_width).multipliedBy(0.5);
         maker.centerX.equalTo(self.view.mas_centerX);
-        maker.top.equalTo(self.view.mas_top)
-                .offset(self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + 10);
+        maker.top.equalTo(slider.mas_bottom).offset(10);
+//        maker.top.equalTo(self.view.mas_top)
+//                .offset(self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + 10);
     }];
 
     [button addTarget:self action:@selector(gotoPickerView) forControlEvents:UIControlEventTouchUpInside];
+    [slider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
+
+
+
 
 }
 
@@ -71,9 +73,13 @@
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 }
 
-- (void) gotoPickerView {
+- (IBAction) gotoPickerView {
     PickerViewController *controller = [[PickerViewController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (IBAction) valueChanged:(UISlider *)sender{
+    NSLog(@"Slider Value: %f", sender.value);
 }
 
 /*

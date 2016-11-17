@@ -21,7 +21,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    self.view.backgroundColor = UIColor.whiteColor;
     self.navigationItem.title = @"Picker View";
 
     if (self.pickerData == nil) {
@@ -49,9 +48,10 @@
 
     [label mas_makeConstraints:^(MASConstraintMaker *maker){
 
+        [super addMarginTopConstraints:maker withMASAttr:self.view.mas_top];
         maker.width.equalTo(self.view.mas_width).multipliedBy(.5);
         maker.centerX.equalTo(self.view.mas_centerX);
-        maker.top.equalTo(self.view.mas_top).offset(self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + 10);
+//        maker.top.equalTo(self.view.mas_top).offset(self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + 10);
 
     }];
 

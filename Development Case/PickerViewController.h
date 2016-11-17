@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BasViewController.h"
 
-@interface PickerViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
+@interface PickerViewController : BasViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @end
