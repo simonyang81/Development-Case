@@ -36,11 +36,18 @@
         maker.centerX.equalTo(self.view.mas_centerX);
         maker.width.equalTo(self.view.mas_width).multipliedBy(.5);
 
-//        [super mas_makeConstraints:maker superView:self.view offset:self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + 10];
-
-//        maker.top.equalTo(self.view.mas_top)
-//                .offset(self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + 10);
     }];
+
+    UISwitch *uiSwitch = [[UISwitch alloc] init];
+    [uiSwitch setOn:YES animated:YES];
+
+    [self.view addSubview:uiSwitch];
+
+    [uiSwitch mas_makeConstraints:^(MASConstraintMaker *maker) {
+        maker.top.equalTo(slider.mas_bottom).offset(10);
+        maker.centerX.equalTo(self.view.mas_centerX);
+    }];
+
 
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
     [self.view addSubview:button];
@@ -51,13 +58,14 @@
     [button mas_makeConstraints:^(MASConstraintMaker *maker){
 //        maker.width.equalTo(self.view.mas_width).multipliedBy(0.5);
         maker.centerX.equalTo(self.view.mas_centerX);
-        maker.top.equalTo(slider.mas_bottom).offset(10);
+        maker.top.equalTo(uiSwitch.mas_bottom).offset(10);
 //        maker.top.equalTo(self.view.mas_top)
 //                .offset(self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + 10);
     }];
 
     [button addTarget:self action:@selector(gotoPickerView) forControlEvents:UIControlEventTouchUpInside];
     [slider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
+
 
 
 
