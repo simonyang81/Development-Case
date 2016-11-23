@@ -10,6 +10,8 @@
 #import <Masonry/View+MASAdditions.h>
 #import "DCViewController.h"
 #import "PickerViewController.h"
+#import "ScrollViewController.h"
+#import "PageScrollViewController.h"
 
 @interface DCViewController ()
 
@@ -31,11 +33,9 @@
     [self.view addSubview:slider];
 
     [slider mas_makeConstraints:^(MASConstraintMaker *maker){
-
         [super addMarginTopConstraints:maker withMASAttr:self.view.mas_top];
-        maker.centerX.equalTo(self.view.mas_centerX);
-        maker.width.equalTo(self.view.mas_width).multipliedBy(.5);
-
+        maker.centerX.mas_equalTo(self.view);
+        maker.width.mas_equalTo(self.view).multipliedBy(.5);//.multipliedBy(.5);
     }];
 
     UISwitch *uiSwitch = [[UISwitch alloc] init];
@@ -48,7 +48,6 @@
         maker.centerX.equalTo(self.view.mas_centerX);
     }];
 
-
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
     [self.view addSubview:button];
 
@@ -56,19 +55,36 @@
     button.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:20];
 
     [button mas_makeConstraints:^(MASConstraintMaker *maker){
-//        maker.width.equalTo(self.view.mas_width).multipliedBy(0.5);
         maker.centerX.equalTo(self.view.mas_centerX);
         maker.top.equalTo(uiSwitch.mas_bottom).offset(10);
-//        maker.top.equalTo(self.view.mas_top)
-//                .offset(self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + 10);
     }];
 
     [button addTarget:self action:@selector(gotoPickerView) forControlEvents:UIControlEventTouchUpInside];
     [slider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
 
+    UIButton *imgBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    [imgBtn setTitle:@"Scroll View" forState:UIControlStateNormal];
+    imgBtn.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:20];
+    [self.view addSubview:imgBtn];
+    [imgBtn mas_makeConstraints:^(MASConstraintMaker *maker){
+        maker.centerX.mas_equalTo(self.view);
+        maker.top.equalTo(button.mas_bottom).offset(10);
+    }];
 
 
+    [imgBtn addTarget:self action:@selector(gotoImageView) forControlEvents:UIControlEventTouchUpInside];
 
+    UIButton *pageScrollBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    [pageScrollBtn setTitle:@"Page Scroll View" forState:UIControlStateNormal];
+    pageScrollBtn.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:20];
+    [self.view addSubview:pageScrollBtn];
+
+    [pageScrollBtn mas_makeConstraints:^(MASConstraintMaker *maker){
+        maker.centerX.mas_equalTo(self.view);
+        maker.top.equalTo(imgBtn.mas_bottom).offset(10);
+    }];
+
+    [pageScrollBtn addTarget:self action:@selector(gotoPageScrollView) forControlEvents:UIControlEventTouchUpInside];
 
 }
 
@@ -89,6 +105,17 @@
 - (IBAction) valueChanged:(UISlider *)sender{
     NSLog(@"Slider Value: %f", sender.value);
 }
+
+- (IBAction) gotoImageView {
+    ScrollViewController *controller = [[ScrollViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (IBAction) gotoPageScrollView {
+    PageScrollViewController *controller = [[PageScrollViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
 
 /*
 #pragma mark - Navigation
