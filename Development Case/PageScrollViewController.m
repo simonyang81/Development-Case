@@ -32,37 +32,31 @@
     UIScrollView *scrollView = [[UIScrollView alloc] init];
     scrollView.delegate = self;
 
-//    [scrollView showsVerticalScrollIndicator];
-//    [scrollView showsHorizontalScrollIndicator];
     [scrollView setScrollEnabled:YES];
     [scrollView setShowsVerticalScrollIndicator:NO];
 
-//    // 控制控件遇到边框是否反弹
+    // 控制控件遇到边框是否反弹
     [scrollView setBounces:YES];
     // 控制缩放的时候是否会反弹
     [scrollView setBouncesZoom:YES];
     [scrollView setDelaysContentTouches:YES];
     [scrollView setCanCancelContentTouches:YES];
 
-    [scrollView setMinimumZoomScale:1];
-    [scrollView setMaximumZoomScale:3];
-
     [self.view addSubview: scrollView];
-//    scrollView.frame = self.view.frame;
 
+    // 每次滚动只滚动一个
 //    [scrollView setPagingEnabled:YES];
+    [scrollView addSubview:imageView1];
+    [scrollView addSubview:imageView2];
+    [scrollView addSubview:imageView3];
 
     [scrollView mas_makeConstraints:^(MASConstraintMaker *maker){
         maker.left.width.centerY.mas_equalTo(self.view);
         maker.height.mas_equalTo(self.view).multipliedBy(0.5);
     }];
 
-    [scrollView addSubview:imageView1];
-    [scrollView addSubview:imageView2];
-    [scrollView addSubview:imageView3];
-
     [imageView1 mas_makeConstraints:^(MASConstraintMaker *maker) {
-        maker.height.mas_equalTo(self.view.mas_height).multipliedBy(0.5);
+        maker.height.mas_equalTo(self.view).multipliedBy(0.5);
         maker.centerY.mas_equalTo(@[self.view, imageView2, imageView3]);
         maker.width.mas_equalTo(self.view).offset(-30);
     }];
