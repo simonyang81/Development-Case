@@ -16,4 +16,6 @@
 
 -(void)addMarginTopConstraints:(MASConstraintMaker *)maker withMASAttr:(MASViewAttribute *) attribute;
 
+-(void)addView:(NSArray *)subView toSuperView:(UIView *)superView;
+
 @end

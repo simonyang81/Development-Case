@@ -33,6 +33,15 @@
             .offset(self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + 10);
 }
 
+- (void)addView:(NSArray *)subView toSuperView:(UIView *)superView {
+
+    for (int i = 0; i < [subView count]; ++i) {
+        [superView addSubview:[subView objectAtIndex:i]];
+    }
+
+}
+
+
 
 //- (void)mas_makeConstraints:(MASConstraintMaker *)maker superView:(UIView *)view offset:(CGFloat)offset {
 //
